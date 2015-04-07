@@ -1,0 +1,50 @@
+defaultTasks 'clean', 'build', 'run'
+
+apply plugin: 'java'
+apply plugin:'application'
+
+mainClassName = "mlo55.App"
+applicationDefaultJvmArgs = [
+        "-DlogFileDirectory=target/logs/prod",
+        "-DprojectName=${project.name}"
+]
+
+buildDir = 'target'
+
+sourceCompatibility = 1.8
+version = '1.1'
+
+//println(project.name)
+println(applicationDefaultJvmArgs);
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+jar {
+//    baseName = 'logback-explicit-name'
+    version =  '0.1.0'
+    manifest {
+        attributes ( 'Main-Class': mainClassName,
+                     'Class-Path': 'mlo55.App' )
+    }
+}
+
+//uploadArchives {
+//    repositories {
+//        flatDir {
+//            dirs 'myrepo'
+//        }
+//    }
+//}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3' //version required
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

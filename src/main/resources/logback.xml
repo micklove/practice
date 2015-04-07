@@ -1,0 +1,41 @@
+<configuration debug="true">
+
+	<property name="logDir" value="${logFileDirectory}" />
+	<property name="appName" value="${projectName}"/>
+	<timestamp key="byDay" datePattern="yyyyMMdd"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type
+			 ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{username}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="INFO" class="ch.qos.logback.core.FileAppender">
+		<file>${logDir}/${projectName}-${byDay}-info.log</file>
+
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] [%X{username}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--<logger name="INFO_LOGGER">-->
+		<!--<appender-ref ref="INFO" />-->
+	<!--</logger>-->
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="INFO" />
+	</root>
+
+
+	<!--<root level="info">-->
+		<!--<appender-ref ref="INFO" />-->
+	<!--</root>-->
+
+	<!--<root level="info">-->
+		<!--<appender-ref ref="FILE" />-->
+	<!--</root>-->
+
+</configuration>
